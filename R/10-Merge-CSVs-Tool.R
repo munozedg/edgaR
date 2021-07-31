@@ -8,6 +8,10 @@
 library(tidyverse) # usamos readr::read_csv()
 library(stringr)
 library(lubridate)
+library(here)
+
+dir.create(here("data"))
+
 
 lst_files = choose.files(filters = "*.csv")
 
