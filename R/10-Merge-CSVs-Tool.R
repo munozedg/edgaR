@@ -5,13 +5,19 @@
 
 # Merge csv files -- manually selecting files ----
 
-library(tidyverse) # usamos readr::read_csv()
+library(tidyverse) # usamos readr::read_csv() y purrr::map_dfr()
 library(stringr)
 library(lubridate)
 library(here)
 dir.create(here("data"))
+dir.create(here("data_raw"))
 
-lst_files = choose.files(filters = "*.csv")
+if (interactive() && .Platform$OS.type == "windows") {
+  lst_files = choose.files(filters = "*.csv")
+} else {
+  lst_files = list.files(path = here("data_raw"),
+                         pattern = "*.csv")
+}
 
 # struc data
 col_types <- cols(
