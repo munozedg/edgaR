@@ -9,9 +9,7 @@ library(tidyverse) # usamos readr::read_csv()
 library(stringr)
 library(lubridate)
 library(here)
-
 dir.create(here("data"))
-
 
 lst_files = choose.files(filters = "*.csv")
 
@@ -34,5 +32,5 @@ table(df_all_csv$file_name)
 
 df_all_csv$file_name <- NULL
 
-write_csv(df_all_csv, paste0("data/", lubridate::today(), "_merged.csv"))
-
+write_csv(df_all_csv,
+          here("data", paste0(lubridate::today(), "_merged.csv")))
