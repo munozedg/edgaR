@@ -1,6 +1,6 @@
-## Enhanced Data Gathering for Analysis using R - edgaR
+## _Enhanced Data Gathering for Analysis using R_ - edgaR
 
-This is just a public collection of functions in R that I programmed to solve problems that I encounter from time to time in my daily practice
+_This is just a public collection of functions in R that I programmed to solve problems that I encounter from time to time in my daily practice_
 
 Una colección publica de funciones en R que he utlizado para resolver problemas que se me presentan a menudo en mi practica diaria
 
