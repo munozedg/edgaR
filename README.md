@@ -1,10 +1,12 @@
-## edgaR
+## Enhanced Data Gathering for Analysis using R - edgaR
 
-Enhanced Data Gathering for Analysis using R
+This is just a public colection of functions in R that I crafted to solve problems
+I encounter from time to time 
 
-This is just a public colection of functions in R that I hope will be also useful to you!
+Una colección publica de funciones en R que he utlizado para resolver problemas 
+que se me presentan a menudo
 
-Una colección publica de funciones en R que espero sean de utilidad para ti también!
+Espero que sean útiles para ti también!
 
 ### 03-Leer-Archivo-CSV-coma-decimal.R
 
