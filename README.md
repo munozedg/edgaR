@@ -20,5 +20,6 @@ Espero que sean útiles para ti también!
 >
 > Solucion: Usar las funciones `readr::read_csv()` para leer cada archivo CSV y `purrr::map_dfr()` para combinar los dataframes resultantes en uno solo
 
-[Ver código R](https://github.com/munozedg/edgaR/blob/aba658054b6d1f60a202550fa92e739bfa193149/R/10-Merge-CSVs-Tool.R)
+[Ver código R](https://github.com/munozedg/edgaR/blob/e4ff34b9ba7c4968b48e79d1c551404052fa7f99/R/10-Merge-CSVs-Tool.R)
+
 
