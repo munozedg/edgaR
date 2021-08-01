@@ -9,34 +9,44 @@ library(tidyverse) # usamos readr::read_csv() y purrr::map_dfr()
 library(stringr)
 library(lubridate)
 library(here)
+
 dir.create(here("data"))
 dir.create(here("data_raw"))
 
 if (interactive() && .Platform$OS.type == "windows") {
-  lst_files = choose.files(filters = "*.csv")
+  files = choose.files(filters = "csv", multi = TRUE)
 } else {
-  lst_files = list.files(path = here("data_raw"),
-                         pattern = "*.csv")
+  files = list.files(path = here("data_raw"),
+                     pattern = "\\.csv$",
+                     full.names = TRUE)
 }
 
-# struc data
-col_types <- cols(
-  .default = col_character()
-)
-
-df_all_csv <- lst_files %>%
-  set_names() %>%
-  map_dfr( ~ read_csv(
-    .x,
-    col_types = col_types,
-    col_names = TRUE,
-    locale = readr::locale(encoding = "latin1")
-  ),
-  .id = "file_name")
-
-table(df_all_csv$file_name)
-
-df_all_csv$file_name <- NULL
-
-write_csv(df_all_csv,
-          here("data", paste0(lubridate::today(), "_merged.csv")))
+if (length(files)<2) {
+  
+  stop("Se requiere al menos 2 archivos CSV")
+  
+} else {
+  
+  # struc data
+  col_types <- cols(.default = col_character())
+  
+  cat("\n\nUniendo los archivos seleccionados...\n\n")
+  df_all_csv <- files %>%
+    set_names() %>%
+    map_dfr(~ read_csv(
+      .x,
+      col_types = col_types,
+      col_names = TRUE,
+      locale = readr::locale(encoding = "latin1")
+    ),
+    .id = "file_name")
+  
+  (table(df_all_csv$file_name))
+  df_all_csv$file_name <- NULL
+  
+  out_file <- here("data", paste0(lubridate::today(), "_merged.csv"))
+  
+  write_csv(df_all_csv, out_file)
+  cat("Archivo consolidado --> ", out_file,"\n\n")
+  
+}
