@@ -9,6 +9,7 @@ library(tidyverse) # usamos readr::read_csv() y purrr::map_dfr()
 library(stringr)
 library(lubridate)
 library(here)
+library(stringi)
 
 dir.create(here("data"))
 dir.create(here("data_raw"))
@@ -31,19 +32,24 @@ if (length(files)<2) {
   col_types <- cols(.default = col_character())
   
   cat("\n\nUniendo los archivos seleccionados...\n\n")
+  
+  ENC <- guess_encoding(files[[1]])[[1]]
+  
   df_all_csv <- files %>%
     set_names() %>%
     map_dfr(~ read_csv(
       .x,
       col_types = col_types,
       col_names = TRUE,
-      locale = readr::locale(encoding = "latin1")
+      locale = readr::locale(encoding = "UTF-8",
+                             decimal_mark = ".",  # puede cambiarse a coma si se necesita
+                             asciify = TRUE)
     ),
     .id = "file_name")
   
   (table(df_all_csv$file_name))
   df_all_csv$file_name <- NULL
-  
+
   out_file <- here("data", paste0(lubridate::today(), "_merged.csv"))
   
   write_csv(df_all_csv, out_file)
