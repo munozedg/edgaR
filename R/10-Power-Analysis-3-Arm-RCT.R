@@ -1,6 +1,9 @@
 # 10-Power-Analysis-3-Arm-RCT
+# https://cran.r-project.org/web/packages/ThreeArmedTrials/vignettes/ThreeArmedTrials.html
 
 library(ThreeArmedTrials)
+
+
 
 RATE_CONTROL      = 0.30 # Standard care
 RATE_REFERENCE    = 0.36 # Patient Navigation
