@@ -3,8 +3,6 @@
 
 library(ThreeArmedTrials)
 
-
-
 RATE_CONTROL      = 0.30 # Standard care
 RATE_REFERENCE    = 0.36 # Patient Navigation
 RATE_EXPERIMENTAL = 0.50 # PN + App

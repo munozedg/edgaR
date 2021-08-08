@@ -1,7 +1,7 @@
 ---
 title: "Power Analysis - 3-Arm RCT"
 author: "Edgar Munoz"
-date: "8/4/2021"
+date: "8/9/2021"
 output: word_document
 ---
 
@@ -10,20 +10,21 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(ThreeArmedTrials)
 
-RATE_CONTROL      = 0.30 # Standard care
-RATE_REFERENCE    = 0.36 # Patient Navigation
-RATE_EXPERIMENTAL = 0.50 # PN + App
-SIGNIFICANCE      = 0.05
-POWER             = 0.80
-
-# TODO: estimate DELTA
-DELTA = 0.8
-
 ```
 
-## Power Estimates
+## Power Estimates using Binary Outcome
 
 ```{r power-01}
+
+RATE_CONTROL      = 0.50 # Standard care
+RATE_REFERENCE    = 0.65 # Patient Navigation
+RATE_EXPERIMENTAL = 0.80 # PN + App
+SIGNIFICANCE      = 0.05
+POWER             = 0.81
+
+# TODO: estimate DELTA
+DELTA = 0.80
+
 W_OPTIMAL <- ThreeArmedTrials::opt_alloc_RET(experiment = RATE_EXPERIMENTAL, 
                                      reference  = RATE_REFERENCE, 
                                      placebo    = RATE_CONTROL, 
@@ -63,7 +64,23 @@ ThreeArmedTrials::power_RET(experiment = RATE_EXPERIMENTAL,
                             var_estimation = "RML")
 
 
-W_MANUAL = c(50,40,20)
+W_MANUAL = c(2,2,1)
+W_MANUAL = W_MANUAL/sum(W_MANUAL)
+print(W_MANUAL)
+
+ThreeArmedTrials::power_RET(experiment = RATE_EXPERIMENTAL, 
+                            reference  = RATE_REFERENCE, 
+                            placebo    = RATE_CONTROL, 
+                            Delta      = DELTA,
+                            sig_level  = SIGNIFICANCE,
+                            power      = POWER,
+                            allocation = W_MANUAL,
+                            distribution = "binary",
+                            h = function(x){-log(x/(1-x))},
+                            h_inv = function(x){exp(-x)/(1+exp(-x))},
+                            var_estimation = "RML")
+
+W_MANUAL = c(2,1,1)
 W_MANUAL = W_MANUAL/sum(W_MANUAL)
 print(W_MANUAL)
 
@@ -80,4 +97,5 @@ ThreeArmedTrials::power_RET(experiment = RATE_EXPERIMENTAL,
                             var_estimation = "RML")
 
 ```
+
 
